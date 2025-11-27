@@ -118,90 +118,90 @@ const [screen, setScreen] = useState<'menu' | 'setup' | 'revealSequence' | 'end'
 type WordEntry = { id: string; word: string; hint?: string };
 
   const WORDS_RU: Record<string, WordEntry[]> = {
-  'Еда': [
-    { id: 'food-1', word: 'Яблоко', hint: 'Фрукт' },
-    { id: 'food-2', word: 'Хлеб', hint: 'Булка' },
-    { id: 'food-3', word: 'Дуршлаг', hint: 'Дождь' },
-    { id: 'food-4', word: 'Суп', hint: 'Ложка' },
-    { id: 'food-5', word: 'Пицца', hint: 'Италия' },
-    { id: 'food-6', word: 'Буррито', hint: 'Мексика' },
-    { id: 'food-7', word: 'Суши', hint: 'Рис' },
-    { id: 'food-8', word: 'Кебаб', hint: 'Мангал' },
-    { id: 'food-9', word: 'Вафля', hint: 'Хруст' },
-    { id: 'food-10', word: 'Омлет', hint: 'Завтрак' }
-  ],
-
-  'Бытовая техника': [
-    { id: 'ap-1', word: 'Холодильник', hint: 'Холод' },
-    { id: 'ap-2', word: 'Стиралка', hint: 'Порошок' },
-    { id: 'ap-3', word: 'Микроволновка', hint: 'Разогрев' },
-    { id: 'ap-4', word: 'Пылесос', hint: 'Шум' },
-    { id: 'ap-5', word: 'Тостер', hint: 'Поджарка' }
-  ],
-
-  'Фильмы': [
-    { id: 'movie-1', word: 'Титаник', hint: 'Корабль' },
-    { id: 'movie-2', word: 'Матрица', hint: 'Зелёный' },
-    { id: 'movie-3', word: 'Интерстеллар', hint: 'Космос' },
-    { id: 'movie-4', word: 'Шрек', hint: 'Болото' },
-    { id: 'movie-5', word: 'Такси', hint: 'Марсель' }
-  ],
-
-  'Игры': [
-    { id: 'game-1', word: 'Майнкрафт', hint: 'Кубы' },
-    { id: 'game-2', word: 'Скайрим', hint: 'Дракон' },
-    { id: 'game-3', word: 'Дота', hint: 'Антимаг' },
-    { id: 'game-4', word: 'КС', hint: 'Бомба' },
-    { id: 'game-5', word: 'ГТА', hint: 'Ограбление' }
-  ],
-
-  'Политика': [
-    { id: 'pol-1', word: 'Президент', hint: 'Выборы' },
-    { id: 'pol-2', word: 'Парламент', hint: 'Законы' },
-    { id: 'pol-3', word: 'Санкции', hint: 'Ограничения' },
-    { id: 'pol-4', word: 'Бюрократия', hint: 'Очередь' },
-    { id: 'pol-5', word: 'Дипломатия', hint: 'Переговоры' }
-  ],
-
-  'Животные': [
-    { id: 'ani-1', word: 'Кот', hint: 'Мурр' },
-    { id: 'ani-2', word: 'Собака', hint: 'Лай' },
-    { id: 'ani-3', word: 'Акула', hint: 'Плавник' },
-    { id: 'ani-4', word: 'Панда', hint: 'Бамбук' },
-    { id: 'ani-5', word: 'Орёл', hint: 'Крылья' }
-  ],
-
-  'Музыка': [
-    { id: 'music-1', word: 'Рок', hint: 'Гитара' },
-    { id: 'music-2', word: 'Рэп', hint: 'Бит' },
-    { id: 'music-3', word: 'Опера', hint: 'Ария' },
-    { id: 'music-4', word: 'Джаз', hint: 'Импровизация' },
-    { id: 'music-5', word: 'Техно', hint: 'Рейв' }
-  ],
-
-  'Страны': [
-    { id: 'country-1', word: 'Япония', hint: 'Самураи' },
-    { id: 'country-2', word: 'США', hint: 'Орёл' },
-    { id: 'country-3', word: 'Польша', hint: 'Пироги' },
-    { id: 'country-4', word: 'Канада', hint: 'Клен' },
-    { id: 'country-5', word: 'Египет', hint: 'Пирамиды' }
-  ],
-
-  'Мемы': [
-    { id: 'meme-1', word: 'Дoge', hint: 'Вау' },
-    { id: 'meme-2', word: 'Шрекмем', hint: 'Луковицы' },
-    { id: 'meme-3', word: 'Троллфейс', hint: 'Ухмылка' },
-    { id: 'meme-4', word: 'Рикролл', hint: 'Песня' },
-    { id: 'meme-5', word: 'Кринж', hint: 'Фейспалм' }
-  ],
-
-  'Рандомная хрень': [
-    { id: 'rnd-1', word: 'Ядерное вооружение', hint: 'Бум' },
-    { id: 'rnd-2', word: 'Госдолг США', hint: 'Триллионы' },
-    { id: 'rnd-3', word: 'Тарифы ЖКХ', hint: 'Квитанция' },
-    { id: 'rnd-4', word: 'Скумбрия', hint: 'Рыба' },
-    { id: 'rnd-5', word: 'Робот-пылесос', hint: 'Кругляш' }
-  ]
+    'Еда': [
+      { id: 'food-1', word: 'Яблоко', hint: 'Фрукт' },
+      { id: 'food-2', word: 'Хлеб', hint: 'Булка' },
+      { id: 'food-3', word: 'Дуршлаг', hint: 'Дождь' },
+      { id: 'food-4', word: 'Суп', hint: 'Ложка' },
+      { id: 'food-5', word: 'Пицца', hint: 'Италия' },
+      { id: 'food-6', word: 'Буррито', hint: 'Мексика' },
+      { id: 'food-7', word: 'Суши', hint: 'Рис' },
+      { id: 'food-8', word: 'Кебаб', hint: 'Мангал' },
+      { id: 'food-9', word: 'Вафля', hint: 'Хруст' },
+      { id: 'food-10', word: 'Омлет', hint: 'Завтрак' }
+    ],
+  
+    'Бытовая техника': [
+      { id: 'ap-1', word: 'Холодильник', hint: 'Холод' },
+      { id: 'ap-2', word: 'Стиралка', hint: 'Порошок' },
+      { id: 'ap-3', word: 'Микроволновка', hint: 'Разогрев' },
+      { id: 'ap-4', word: 'Пылесос', hint: 'Шум' },
+      { id: 'ap-5', word: 'Тостер', hint: 'Поджарка' }
+    ],
+  
+    'Фильмы': [
+      { id: 'movie-1', word: 'Титаник', hint: 'Корабль' },
+      { id: 'movie-2', word: 'Матрица', hint: 'Зелёный' },
+      { id: 'movie-3', word: 'Интерстеллар', hint: 'Космос' },
+      { id: 'movie-4', word: 'Шрек', hint: 'Болото' },
+      { id: 'movie-5', word: 'Такси', hint: 'Марсель' }
+    ],
+  
+    'Игры': [
+      { id: 'game-1', word: 'Майнкрафт', hint: 'Кубы' },
+      { id: 'game-2', word: 'Скайрим', hint: 'Дракон' },
+      { id: 'game-3', word: 'Дота', hint: 'Антимаг' },
+      { id: 'game-4', word: 'КС', hint: 'Бомба' },
+      { id: 'game-5', word: 'ГТА', hint: 'Ограбление' }
+    ],
+  
+    'Политика': [
+      { id: 'pol-1', word: 'Президент', hint: 'Выборы' },
+      { id: 'pol-2', word: 'Парламент', hint: 'Законы' },
+      { id: 'pol-3', word: 'Санкции', hint: 'Ограничения' },
+      { id: 'pol-4', word: 'Бюрократия', hint: 'Очередь' },
+      { id: 'pol-5', word: 'Дипломатия', hint: 'Переговоры' }
+    ],
+  
+    'Животные': [
+      { id: 'ani-1', word: 'Кот', hint: 'Мурр' },
+      { id: 'ani-2', word: 'Собака', hint: 'Лай' },
+      { id: 'ani-3', word: 'Акула', hint: 'Плавник' },
+      { id: 'ani-4', word: 'Панда', hint: 'Бамбук' },
+      { id: 'ani-5', word: 'Орёл', hint: 'Крылья' }
+    ],
+  
+    'Музыка': [
+      { id: 'music-1', word: 'Рок', hint: 'Гитара' },
+      { id: 'music-2', word: 'Рэп', hint: 'Бит' },
+      { id: 'music-3', word: 'Опера', hint: 'Ария' },
+      { id: 'music-4', word: 'Джаз', hint: 'Импровизация' },
+      { id: 'music-5', word: 'Техно', hint: 'Рейв' }
+    ],
+  
+    'Страны': [
+      { id: 'country-1', word: 'Япония', hint: 'Самураи' },
+      { id: 'country-2', word: 'США', hint: 'Орёл' },
+      { id: 'country-3', word: 'Польша', hint: 'Пироги' },
+      { id: 'country-4', word: 'Канада', hint: 'Клен' },
+      { id: 'country-5', word: 'Египет', hint: 'Пирамиды' }
+    ],
+  
+    'Мемы': [
+      { id: 'meme-1', word: 'Дoge', hint: 'Вау' },
+      { id: 'meme-2', word: 'Шрекмем', hint: 'Луковицы' },
+      { id: 'meme-3', word: 'Троллфейс', hint: 'Ухмылка' },
+      { id: 'meme-4', word: 'Рикролл', hint: 'Песня' },
+      { id: 'meme-5', word: 'Кринж', hint: 'Фейспалм' }
+    ],
+  
+    'Рандомная хрень': [
+      { id: 'rnd-1', word: 'Ядерное вооружение', hint: 'Бум' },
+      { id: 'rnd-2', word: 'Госдолг США', hint: 'Триллионы' },
+      { id: 'rnd-3', word: 'Тарифы ЖКХ', hint: 'Квитанция' },
+      { id: 'rnd-4', word: 'Скумбрия', hint: 'Рыба' },
+      { id: 'rnd-5', word: 'Робот-пылесос', hint: 'Кругляш' }
+    ]
   };
 
   const WORDS_EN: Record<string, WordEntry[]> = {
@@ -211,15 +211,85 @@ type WordEntry = { id: string; word: string; hint?: string };
       { id: 'food-3', word: 'Colander', hint: 'Rain' },
       { id: 'food-4', word: 'Soup', hint: 'Spoon' },
       { id: 'food-5', word: 'Pizza', hint: 'Italy' },
+      { id: 'food-6', word: 'Burrito', hint: 'Mexico' },
+      { id: 'food-7', word: 'Sushi', hint: 'Rice' },
+      { id: 'food-8', word: 'Kebab', hint: 'Grill' },
+      { id: 'food-9', word: 'Waffle', hint: 'Crunch' },
+      { id: 'food-10', word: 'Omelette', hint: 'Breakfast' }
     ],
+
     'Appliances': [
       { id: 'ap-1', word: 'Fridge', hint: 'Cold' },
       { id: 'ap-2', word: 'Washer', hint: 'Detergent' },
+      { id: 'ap-3', word: 'Microwave', hint: 'Heat' },
+      { id: 'ap-4', word: 'Vacuum', hint: 'Noise' },
+      { id: 'ap-5', word: 'Toaster', hint: 'Toast' }
     ],
-    'Celebrities': [
-      { id: 'celeb-1', word: 'Beyonce', hint: 'Singer' },
-      { id: 'celeb-2', word: 'Ronaldo', hint: 'Football' },
+
+    'Movies': [
+      { id: 'movie-1', word: 'Titanic', hint: 'Ship' },
+      { id: 'movie-2', word: 'Matrix', hint: 'Green' },
+      { id: 'movie-3', word: 'Interstellar', hint: 'Space' },
+      { id: 'movie-4', word: 'Shrek', hint: 'Swamp' },
+      { id: 'movie-5', word: 'Taxi', hint: 'Marseille' }
+    ],
+
+    'Games': [
+      { id: 'game-1', word: 'Minecraft', hint: 'Blocks' },
+      { id: 'game-2', word: 'Skyrim', hint: 'Dragon' },
+      { id: 'game-3', word: 'Dota', hint: 'Anti-Mage' },
+      { id: 'game-4', word: 'CS', hint: 'Bomb' },
+      { id: 'game-5', word: 'GTA', hint: 'Heist' }
+    ],
+
+    'Politics': [
+      { id: 'pol-1', word: 'President', hint: 'Elections' },
+      { id: 'pol-2', word: 'Parliament', hint: 'Laws' },
+      { id: 'pol-3', word: 'Sanctions', hint: 'Restrictions' },
+      { id: 'pol-4', word: 'Bureaucracy', hint: 'Queue' },
+      { id: 'pol-5', word: 'Diplomacy', hint: 'Negotiations' }
+    ],
+
+    'Animals': [
+      { id: 'ani-1', word: 'Cat', hint: 'Purr' },
+      { id: 'ani-2', word: 'Dog', hint: 'Bark' },
+      { id: 'ani-3', word: 'Shark', hint: 'Fin' },
+      { id: 'ani-4', word: 'Panda', hint: 'Bamboo' },
+      { id: 'ani-5', word: 'Eagle', hint: 'Wings' }
+    ],
+
+    'Music': [
+      { id: 'music-1', word: 'Rock', hint: 'Guitar' },
+      { id: 'music-2', word: 'Rap', hint: 'Beat' },
+      { id: 'music-3', word: 'Opera', hint: 'Aria' },
+      { id: 'music-4', word: 'Jazz', hint: 'Improv' },
+      { id: 'music-5', word: 'Techno', hint: 'Rave' }
+    ],
+
+    'Countries': [
+      { id: 'country-1', word: 'Japan', hint: 'Samurai' },
+      { id: 'country-2', word: 'USA', hint: 'Eagle' },
+      { id: 'country-3', word: 'Poland', hint: 'Pierogi' },
+      { id: 'country-4', word: 'Canada', hint: 'Maple' },
+      { id: 'country-5', word: 'Egypt', hint: 'Pyramids' }
+    ],
+
+    'Memes': [
+      { id: 'meme-1', word: 'Doge', hint: 'Wow' },
+      { id: 'meme-2', word: 'Shrek-meme', hint: 'Onions' },
+      { id: 'meme-3', word: 'Trollface', hint: 'Grin' },
+      { id: 'meme-4', word: 'Rickroll', hint: 'Song' },
+      { id: 'meme-5', word: 'Cringe', hint: 'Facepalm' }
+    ],
+
+    'Random Stuff': [
+      { id: 'rnd-1', word: 'Nuclear arsenal', hint: 'Boom' },
+      { id: 'rnd-2', word: 'US national debt', hint: 'Trillions' },
+      { id: 'rnd-3', word: 'Utility tariffs', hint: 'Bills' },
+      { id: 'rnd-4', word: 'Mackerel', hint: 'Fish' },
+      { id: 'rnd-5', word: 'Robot vacuum', hint: 'Round' }
     ]
+
   };
 
   const pickExcept = (arr: string[], exclude?: string) => {
