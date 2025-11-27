@@ -88,7 +88,7 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
             willChange: 'transform, opacity',
           } as React.CSSProperties;
 
-          return <div key={p.id} className="snow" style={style} />;
+          //return <div key={p.id} className="snow" style={style} />;
         }
 
         // For dots, we need to pass CSS var --float-x; cast style to accept custom properties
@@ -108,7 +108,8 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
           ['--float-x' as any]: `${p.floatX}px`,
         } as React.CSSProperties & Record<string, string>;
 
-        return <div key={p.id} className="particle" style={style} />;
+        //disabled this before better times
+        return ""; //<div key={p.id} className="particle" style={style} />;
       })}
     </div>
   );

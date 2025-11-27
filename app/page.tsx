@@ -14,13 +14,14 @@ type Player = { id: string; name: string };
 // ============ i18n (simple) ============
 const DICT: Record<Lang, Record<string, string>> = {
   ru: {
-    title: 'The',
+    title: 'Найдите Предателя!',
     play: 'Играть',
     multiplayer: 'Мультиплеер',
     settings: 'Настройки',
     about: 'Обо мне',
     startGame: 'Начать игру',
     back: 'Назад',
+    player: 'Игрок',
     players: 'Игроки',
     addPlayer: 'Добавить игрока',
     traitors: 'Предатели',
@@ -34,15 +35,19 @@ const DICT: Record<Lang, Record<string, string>> = {
     newGame: 'Новая игра',
     hinte: 'Подсказка',
     holdToReveal: 'Удерживайте, чтобы увидеть роль',
+    tractors: 'Предатель(ли)',
+      howToPlay: "Как играть",
+  howToPlayText: "Игрокам даётся одно слово, но один (или несколько) игрок не видит слово. Игроки по очереди говорят ассоциации. После круга обсуждений все голосуют за предполагаемого предателя.",
   },
   en: {
-    title: 'The Chameleon',
+    title: 'Find The Impostor!',
     play: 'Play',
     multiplayer: 'Multiplayer',
     settings: 'Settings',
     about: 'About me',
     startGame: 'Start game',
     back: 'Back',
+    player: 'Player',
     players: 'Players',
     addPlayer: 'Add player',
     traitors: 'Traitors',
@@ -56,6 +61,9 @@ const DICT: Record<Lang, Record<string, string>> = {
     newGame: 'New game',
     hinte: 'Hint',
     holdToReveal: 'Hold to reveal your role',
+    tractors: 'Traitor(s)',
+    howToPlay: "How to play",
+    howToPlayText: "Players get a secret word, except one (or more) impostor. Players give associations one by one. After discussion, everyone votes who the impostor is.",
   },
 };
 
@@ -70,22 +78,21 @@ function t(lang: Lang, key: string, vars?: Record<string, string | number>) {
 
 // ============ Local Storage Hook ============
 function useLocalStorage<T>(key: string, initial: T) {
-  const isClient = typeof window !== 'undefined';
-  const [state, setState] = useState<T>(() => {
-    if (!isClient) return initial;
+  const [state, setState] = useState<T>(initial);
+
+  useEffect(() => {
     try {
       const raw = localStorage.getItem(key);
-      return raw ? (JSON.parse(raw) as T) : initial;
-    } catch {
-      return initial;
-    }
-  });
+      if (raw) setState(JSON.parse(raw));
+    } catch {}
+  }, []);
+
   useEffect(() => {
-    if (!isClient) return;
     try {
       localStorage.setItem(key, JSON.stringify(state));
     } catch {}
-  }, [key, state, isClient]);
+  }, [state]);
+
   return [state, setState] as const;
 }
 
@@ -95,7 +102,7 @@ export default function ChameleonPreview() {
   const [lang, setLang] = useLocalStorage<Lang>('prefs.lang', 'ru');
   const [theme, setTheme] = useLocalStorage<ThemeKey>('prefs.theme', 'liquidLight');
 
-  const [screen, setScreen] = useState<'menu' | 'setup' | 'revealSequence' | 'end' >('menu');
+const [screen, setScreen] = useState<'menu' | 'setup' | 'revealSequence' | 'end' | 'howto'>('menu');
   const [players, setPlayers] = useLocalStorage<Player[]>('game.players', [
     { id: uid('p-'), name: 'Игрок 1' },
     { id: uid('p-'), name: 'Игрок 2' },
@@ -214,11 +221,33 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
           <button className="btn-primary" onClick={()=>setScreen('setup')}>{t(lang,'play')}</button>
           <button className="btn-disabled py-3 rounded-lg" disabled>{t(lang,'multiplayer')}</button>
           <button className="btn-ghost py-3 rounded-lg" onClick={()=>setScreen('setup')}>{t(lang,'settings')}</button>
+          <button className="btn-soft py-3 rounded-lg" onClick={()=>setScreen('howto')}>
+            {t(lang,'howToPlay')}
+          </button>
         </div>
         <div className="mt-6 text-sm opacity-80">{t(lang,'about')}: <br/>Swino4ka - (<a href='https://github.com/Swino4ka'>Github</a> - <a href='linkedin.com/in/oleksandr-kvartiuk-b24171265'>LinkedIn</a> - <a href='https://swino4ka.github.io/Portfolio/'>Portfolio</a>)</div>
       </MainBlock>
     );
   }
+
+  function HowToScreen() {
+  return (
+    <MainBlock>
+      <button className="btn-soft" onClick={()=>setScreen('menu')}>
+        {t(lang,'back')}
+      </button>
+
+      <h2 className="text-2xl font-semibold mb-4">
+        {t(lang,'howToPlay')}
+      </h2>
+
+      <p className="opacity-90 leading-relaxed">
+        {t(lang,'howToPlayText')}
+      </p>
+    </MainBlock>
+  );
+}
+
 
   function SetupScreen(){
     return (
@@ -241,7 +270,7 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
                 })} className="icon-btn">⬆️</button>
               </div>
             ))}
-            <button className="mt-2" onClick={()=> setPlayers(ps => [...ps, {id: uid('p-'), name: `Игрок ${ps.length+1}`}])}>{t(lang,'addPlayer')}</button>
+            <button className="mt-2 btn-soft" onClick={()=> setPlayers(ps => [...ps, {id: uid('p-'), name: `${ps.length+1}`}])}>{t(lang,'addPlayer')}</button>
           </div>
         </section>
 
@@ -375,7 +404,7 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
       <MainBlock>
         <h2 className="text-2xl font-semibold mb-4">{t(lang,'revealWord')}: {secretWord}</h2>
 <div className="mb-4">
-  Предатели: {
+  {t(lang,'tractors')}: {
     Object.entries(rolesAssigned)
       .filter(([_, r]) => (r as RoleInfo).role === 'TRAITOR')
       .map(([id]) => players.find(p => p.id === id)?.name)
@@ -384,8 +413,8 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
   }
 </div>
         <div className="flex mb-30 gap-2">
-          <button onClick={()=> { resetToSetup(); }} className="px-4 py-2 rounded">{t(lang,'newGame')}</button>
-          <button onClick={()=> setScreen('menu')} className="px-4 py-2 rounded">{t(lang,'back')}</button>
+          <button onClick={()=> { resetToSetup(); }} className="px-4 py-2 rounded btn-soft">{t(lang,'newGame')}</button>
+          <button onClick={()=> setScreen('menu')} className="px-4 py-2 rounded btn-soft">{t(lang,'back')}</button>
         </div>
       </MainBlock>
     );
@@ -398,6 +427,7 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
       {screen === 'setup' && <SetupScreen />}
       {screen === 'revealSequence' && <RevealSequence />}
       {screen === 'end' && <EndScreen />}
+      {screen === 'howto' && <HowToScreen/>}
 
       {}
       <div className="fixed top-6 right-6 p-2 bg-white/5 rounded">
