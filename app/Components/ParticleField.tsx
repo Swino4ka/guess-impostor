@@ -18,11 +18,9 @@ function rand(min:number, max:number){ return Math.random()*(max-min)+min; }
 
 export default function ParticleField({count = 28, persistKey = 'particles_v1'}:{
   count?: number;
-  persistKey?: string; // optional: key to persist seed/particles in sessionStorage
+  persistKey?: string; 
 }) {
-  // 1) try to load from sessionStorage so particles survive page navigation
   const stored = typeof window !== 'undefined' ? sessionStorage.getItem(persistKey) : null;
-  // useRef to hold persistent particles across renders
   const ref = useRef<Particle[] | null>(null);
 
   if (!ref.current) {
@@ -36,7 +34,6 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
   }
 
   if (!ref.current) {
-    // generate once
     const arr: Particle[] = Array.from({ length: count }).map((_, i) => {
       const kind = Math.random() > 0.86 ? 'snow' : 'dot';
       return {
@@ -53,7 +50,6 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
       };
     });
     ref.current = arr;
-    // persist to sessionStorage so same positions used across route changes in this session
     try {
       sessionStorage.setItem(persistKey, JSON.stringify(arr));
     } catch { /* ignore */ }
@@ -61,9 +57,7 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
 
   const particles = ref.current;
 
-  // Minor: prevent animation restart on reflow — add will-change via effect (purely optional)
   useEffect(() => {
-    // nothing needed here for now, but hook kept in case you want to toggle animations
     return () => {};
   }, []);
 
@@ -72,7 +66,6 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
     <div className="particle-layer" aria-hidden>
       {particles.map(p => {
         if (p.kind === 'snow') {
-          // snow uses translateY animation (driftDown), keeps left/top static
           const style = {
             left: p.left,
             top: p.top,
@@ -87,11 +80,8 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
             filter: `blur(${p.blur}px)`,
             willChange: 'transform, opacity',
           } as React.CSSProperties;
-
-          //return <div key={p.id} className="snow" style={style} />;
         }
 
-        // For dots, we need to pass CSS var --float-x; cast style to accept custom properties
         const style = {
           left: p.left,
           top: p.top,
@@ -104,7 +94,6 @@ export default function ParticleField({count = 28, persistKey = 'particles_v1'}:
           animationDuration: `${p.duration}s`,
           animationDelay: `${p.delay}s`,
           willChange: 'transform, opacity',
-          // custom css variable for use in keyframes if needed
           ['--float-x' as any]: `${p.floatX}px`,
         } as React.CSSProperties & Record<string, string>;
 
