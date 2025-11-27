@@ -118,21 +118,90 @@ const [screen, setScreen] = useState<'menu' | 'setup' | 'revealSequence' | 'end'
 type WordEntry = { id: string; word: string; hint?: string };
 
   const WORDS_RU: Record<string, WordEntry[]> = {
-    'Еда': [
-      { id: 'food-1', word: 'Яблоко', hint: 'Фрукт' },
-      { id: 'food-2', word: 'Хлеб', hint: 'Булка' },
-      { id: 'food-3', word: 'Дуршлаг', hint: 'Дождь' },
-      { id: 'food-4', word: 'Суп', hint: 'Ложка' },
-      { id: 'food-5', word: 'Пицца', hint: 'Италия' },
-    ],
-    'Бытовая техника': [
-      { id: 'ap-1', word: 'Холодильник', hint: 'Холод' },
-      { id: 'ap-2', word: 'Стиралка', hint: 'Порошок' },
-    ],
-    'Знаменитости': [
-      { id: 'celeb-1', word: 'Бейонсе', hint: 'Певица' },
-      { id: 'celeb-2', word: 'Рональдо', hint: 'Футбол' },
-    ]
+  'Еда': [
+    { id: 'food-1', word: 'Яблоко', hint: 'Фрукт' },
+    { id: 'food-2', word: 'Хлеб', hint: 'Булка' },
+    { id: 'food-3', word: 'Дуршлаг', hint: 'Дождь' },
+    { id: 'food-4', word: 'Суп', hint: 'Ложка' },
+    { id: 'food-5', word: 'Пицца', hint: 'Италия' },
+    { id: 'food-6', word: 'Буррито', hint: 'Мексика' },
+    { id: 'food-7', word: 'Суши', hint: 'Рис' },
+    { id: 'food-8', word: 'Кебаб', hint: 'Мангал' },
+    { id: 'food-9', word: 'Вафля', hint: 'Хруст' },
+    { id: 'food-10', word: 'Омлет', hint: 'Завтрак' }
+  ],
+
+  'Бытовая техника': [
+    { id: 'ap-1', word: 'Холодильник', hint: 'Холод' },
+    { id: 'ap-2', word: 'Стиралка', hint: 'Порошок' },
+    { id: 'ap-3', word: 'Микроволновка', hint: 'Разогрев' },
+    { id: 'ap-4', word: 'Пылесос', hint: 'Шум' },
+    { id: 'ap-5', word: 'Тостер', hint: 'Поджарка' }
+  ],
+
+  'Фильмы': [
+    { id: 'movie-1', word: 'Титаник', hint: 'Корабль' },
+    { id: 'movie-2', word: 'Матрица', hint: 'Зелёный' },
+    { id: 'movie-3', word: 'Интерстеллар', hint: 'Космос' },
+    { id: 'movie-4', word: 'Шрек', hint: 'Болото' },
+    { id: 'movie-5', word: 'Такси', hint: 'Марсель' }
+  ],
+
+  'Игры': [
+    { id: 'game-1', word: 'Майнкрафт', hint: 'Кубы' },
+    { id: 'game-2', word: 'Скайрим', hint: 'Дракон' },
+    { id: 'game-3', word: 'Дота', hint: 'Антимаг' },
+    { id: 'game-4', word: 'КС', hint: 'Бомба' },
+    { id: 'game-5', word: 'ГТА', hint: 'Ограбление' }
+  ],
+
+  'Политика': [
+    { id: 'pol-1', word: 'Президент', hint: 'Выборы' },
+    { id: 'pol-2', word: 'Парламент', hint: 'Законы' },
+    { id: 'pol-3', word: 'Санкции', hint: 'Ограничения' },
+    { id: 'pol-4', word: 'Бюрократия', hint: 'Очередь' },
+    { id: 'pol-5', word: 'Дипломатия', hint: 'Переговоры' }
+  ],
+
+  'Животные': [
+    { id: 'ani-1', word: 'Кот', hint: 'Мурр' },
+    { id: 'ani-2', word: 'Собака', hint: 'Лай' },
+    { id: 'ani-3', word: 'Акула', hint: 'Плавник' },
+    { id: 'ani-4', word: 'Панда', hint: 'Бамбук' },
+    { id: 'ani-5', word: 'Орёл', hint: 'Крылья' }
+  ],
+
+  'Музыка': [
+    { id: 'music-1', word: 'Рок', hint: 'Гитара' },
+    { id: 'music-2', word: 'Рэп', hint: 'Бит' },
+    { id: 'music-3', word: 'Опера', hint: 'Ария' },
+    { id: 'music-4', word: 'Джаз', hint: 'Импровизация' },
+    { id: 'music-5', word: 'Техно', hint: 'Рейв' }
+  ],
+
+  'Страны': [
+    { id: 'country-1', word: 'Япония', hint: 'Самураи' },
+    { id: 'country-2', word: 'США', hint: 'Орёл' },
+    { id: 'country-3', word: 'Польша', hint: 'Пироги' },
+    { id: 'country-4', word: 'Канада', hint: 'Клен' },
+    { id: 'country-5', word: 'Египет', hint: 'Пирамиды' }
+  ],
+
+  'Мемы': [
+    { id: 'meme-1', word: 'Дoge', hint: 'Вау' },
+    { id: 'meme-2', word: 'Шрекмем', hint: 'Луковицы' },
+    { id: 'meme-3', word: 'Троллфейс', hint: 'Ухмылка' },
+    { id: 'meme-4', word: 'Рикролл', hint: 'Песня' },
+    { id: 'meme-5', word: 'Кринж', hint: 'Фейспалм' }
+  ],
+
+  'Рандомная хрень': [
+    { id: 'rnd-1', word: 'Ядерное вооружение', hint: 'Бум' },
+    { id: 'rnd-2', word: 'Госдолг США', hint: 'Триллионы' },
+    { id: 'rnd-3', word: 'Тарифы ЖКХ', hint: 'Квитанция' },
+    { id: 'rnd-4', word: 'Скумбрия', hint: 'Рыба' },
+    { id: 'rnd-5', word: 'Робот-пылесос', hint: 'Кругляш' }
+  ]
   };
 
   const WORDS_EN: Record<string, WordEntry[]> = {
