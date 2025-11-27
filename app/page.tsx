@@ -28,10 +28,12 @@ const DICT: Record<Lang, Record<string, string>> = {
     chooseThemes: 'Выберите темы',
     readyPlayer: 'Игрок {n}, приготовьтесь! Нажмите и удерживайте, чтобы увидеть роль',
     youAreTraitor: 'ВЫ ПРЕДАТЕЛЬ!',
-    youAreNormal: 'Вы обычный игрок. Слово: {word}',
+    youAreNormal: 'Слово: {word}',
     endGame: 'Закончить игру',
     revealWord: 'Загаданное слово',
     newGame: 'Новая игра',
+    hinte: 'Подсказка',
+    holdToReveal: 'Удерживайте, чтобы увидеть роль',
   },
   en: {
     title: 'The Chameleon',
@@ -48,10 +50,12 @@ const DICT: Record<Lang, Record<string, string>> = {
     chooseThemes: 'Choose topics',
     readyPlayer: 'Player {n}, get ready! Press & hold to view role',
     youAreTraitor: 'YOU ARE THE IMPOSTOR!',
-    youAreNormal: 'You are a normal player. Word: {word}',
+    youAreNormal: 'Word: {word}',
     endGame: 'End game',
     revealWord: 'Revealed word',
     newGame: 'New game',
+    hinte: 'Hint',
+    holdToReveal: 'Hold to reveal your role',
   },
 };
 
@@ -277,7 +281,7 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
   const showContent =
     <motion.div
   className={`
-    reveal-card card-raise bg-panel panel-border
+    reveal-card card-raise panel-border
     border border-white/8
   `}
   onPointerDown={() => setRevealed(true)}
@@ -294,7 +298,7 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
           </div>
           {info.entry?.hint && (
             <div className="mt-3 opacity-90 text-lg">
-              🔍 Подсказка: {info.entry.hint}
+              🔍 {t(lang,'hinte')}: {info.entry.hint}
             </div>
           )}
         </>
@@ -325,13 +329,13 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
           onPointerUp={() => setRevealed(false)}
           onPointerLeave={() => setRevealed(false)}
         >
-          <div className="text-2xl font-semibold mb-3">
+          <div className="text-2xl font-semibold mb-7">
             {players[currentIndex].name}
           </div>
 
           {!revealed ? (
             <div className="py-8 text-lg opacity-50">
-              👆 Удерживайте, чтобы увидеть роль
+              👆 {t(lang,'holdToReveal')}
             </div>
           ) : (
             showContent
@@ -376,7 +380,7 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
       .join(', ')
   }
 </div>
-        <div className="flex gap-2">
+        <div className="flex mb-30 gap-2">
           <button onClick={()=> { resetToSetup(); }} className="px-4 py-2 rounded">{t(lang,'newGame')}</button>
           <button onClick={()=> setScreen('menu')} className="px-4 py-2 rounded">{t(lang,'back')}</button>
         </div>
