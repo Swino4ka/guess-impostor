@@ -105,7 +105,6 @@ export default function ChameleonPreview() {
   const [hintForImpostor, setHintForImpostor] = useLocalStorage<boolean>('game.hint', true);
   const [selectedThemes, setSelectedThemes] = useLocalStorage<string[]>('game.themes', ['Еда']);
 
-  const [rolesAssigned, setRolesAssigned] = useState<Record<string, string | 'TRAITOR' | null>>({});
   const [secretWord, setSecretWord] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -152,6 +151,10 @@ type WordEntry = { id: string; word: string; hint?: string };
     return pool.length ? pool[Math.floor(Math.random() * pool.length)] : undefined;
   };
     type RoleInfo = { role: 'TRAITOR' | 'NORMAL'; entry?: WordEntry };
+
+  const [rolesAssigned, setRolesAssigned] =
+    useState<Record<string, RoleInfo>>({});
+
 
   // ============ Functions ============
 function startGame() {
@@ -212,7 +215,7 @@ const MainBlock: React.FC<{children?: React.ReactNode}> = ({children}) => (
           <button className="btn-disabled py-3 rounded-lg" disabled>{t(lang,'multiplayer')}</button>
           <button className="btn-ghost py-3 rounded-lg" onClick={()=>setScreen('setup')}>{t(lang,'settings')}</button>
         </div>
-        <div className="mt-6 text-sm opacity-80">{t(lang,'about')}: <br/>YourName — ссылки (YouTube / GitHub / Boosty)</div>
+        <div className="mt-6 text-sm opacity-80">{t(lang,'about')}: <br/>Swino4ka - (<a href='https://github.com/Swino4ka'>Github</a> - <a href='linkedin.com/in/oleksandr-kvartiuk-b24171265'>LinkedIn</a> - <a href='https://swino4ka.github.io/Portfolio/'>Portfolio</a>)</div>
       </MainBlock>
     );
   }
